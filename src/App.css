@@ -1,3 +1,9 @@
+/*
+* {
+  outline: 1px solid red;
+}
+*/
+
 .App {
   text-align: center;
 }
@@ -36,3 +42,45 @@
     transform: rotate(360deg);
   }
 }
+
+.Main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-rows: 50% 50%;
+  justify-content: center;
+  align-content: center;
+}
+
+.Main-title {
+  font-size: 1.6em;
+  grid-row: 1 / 2; 
+}
+
+.City-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  grid-row: 2 / 2;
+}
+
+h1 {
+  font-size: 0.7em;
+}
+
+label {
+  font-size: 0.5em;
+}
+
+.text-btn {
+  text-transform: unset !important;
+}
+
+.Weather-content {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  gap: 5px;
+}
+
