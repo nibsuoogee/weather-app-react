@@ -1,22 +1,23 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import CityButton from './components/CityButton/CityButton'
+import CityWeather from './components/CityWeather/CityWeather'
 
 function App() {
+  const [availableCities, setAvailableCities] = useState(["helsinki", "turku", "tampere"]);
+  const [activeCity, setActiveCity] = useState(null);
+
+  const handleActiveCity = (cityName) => {
+    setActiveCity(availableCities.includes(cityName) ? cityName : null);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          <CityButton cityName={availableCities[0]} activeCity={activeCity} activateCity={handleActiveCity}/>
+          <CityWeather activeCity={activeCity} deactivateCity={handleActiveCity}/>
+        </div>
       </header>
     </div>
   );
