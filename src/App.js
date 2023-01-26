@@ -14,11 +14,14 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          {availableCities.map((city) => (
-            <CityButton cityName={city} activeCity={activeCity} activateCity={handleActiveCity}/>
-          ))}
-          <CityWeather activeCity={activeCity} deactivateCity={handleActiveCity}/>
+        <div className="Main-grid">
+          <h1 className="Main-title">{activeCity ? activeCity.toUpperCase() : "THE WEATHER SERVICE"}</h1>
+          <div className="City-content">
+            {availableCities.map((city) => (
+              <CityButton cityName={city} activeCity={activeCity} activateCity={handleActiveCity}/>
+            ))}
+            <CityWeather activeCity={activeCity} deactivateCity={handleActiveCity}/>
+          </div>
         </div>
       </header>
     </div>
