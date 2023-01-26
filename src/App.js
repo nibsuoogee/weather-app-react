@@ -15,7 +15,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-          <CityButton cityName={availableCities[0]} activeCity={activeCity} activateCity={handleActiveCity}/>
+          {availableCities.map((city) => (
+            <CityButton cityName={city} activeCity={activeCity} activateCity={handleActiveCity}/>
+          ))}
           <CityWeather activeCity={activeCity} deactivateCity={handleActiveCity}/>
         </div>
       </header>
