@@ -1,11 +1,11 @@
-import './CityWeather.css'
+import './WeatherCarousel.css'
 import SingleDayWeather from '../SingleDayWeather/SingleDayWeather'
 import { useState } from 'react';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 
-const CityWeather = ({activeCity, deactivateCity}) => {
+const WeatherCarousel = ({activeCity, deactivateCity}) => {
     const [switchChecked, setSwitchChecked] = useState(false);
     const [cityWeatherDisplay, setCityWeatherDisplay] = useState(null);
     const [cityWeather, setCityWeather] = useState(null);
@@ -108,4 +108,4 @@ const CityWeather = ({activeCity, deactivateCity}) => {
     ) : "";
 }
 
-export default CityWeather
+export default WeatherCarousel

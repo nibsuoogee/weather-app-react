@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css';
 import { useState } from 'react';
 import CityButton from './components/CityButton/CityButton';
-import CityWeather from './components/CityWeather/CityWeather';
+import CityWeather from './components/WeatherCarousel/WeatherCarousel';
 
 function App() {
   const [availableCities, setAvailableCities] = useState([
