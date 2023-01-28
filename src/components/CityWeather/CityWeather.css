@@ -1,0 +1,12 @@
+.Weather-content {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    gap: 5px;
+  }
+
+.Weather-Carousel {
+    display: flex;
+    gap: 40px;
+}
