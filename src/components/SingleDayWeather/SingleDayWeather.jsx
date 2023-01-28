@@ -5,7 +5,7 @@ import { faCloud, faCloudRain, faCloudShowersHeavy, faSnowflake, faSun, faBolt, 
 
 const SingleDayWeather = ({date, temperature, code}) => {
 
-    library.add(faCloud, faCloudRain, faCloudShowersHeavy, faSnowflake, faSun, faBolt, faSmog, faWind)
+    library.add(faCloud, faCloudRain, faCloudShowersHeavy, faSnowflake, faSun, faBolt, faSmog, faWind, faCloudBolt, faTornado, faCloudMeatball, faCloudShowersWater)
 
     const weatherCodes = [
         {
@@ -170,7 +170,7 @@ const SingleDayWeather = ({date, temperature, code}) => {
         }
       ];
 
-    if (temperature && (code !== null)) {
+    if (temperature && (code !== (null || undefined))) {
       let floorCode = 0;
       for (let i = 0; i < weatherCodes.length; i++) {
           if (code === weatherCodes[i].floor) {
@@ -186,7 +186,7 @@ const SingleDayWeather = ({date, temperature, code}) => {
 
       const ShowDate = (date) => {
         const formattedDate = date.replace('-','.');
-        return formattedDate ? <h1>{formattedDate}</h1> : "";
+        return formattedDate ? <label className="date">{formattedDate}</label> : "";
       }
 
       return(
@@ -194,17 +194,16 @@ const SingleDayWeather = ({date, temperature, code}) => {
           <div>
             {date ? ShowDate(date) : ""}
           </div>
-        <div>
-            <FontAwesomeIcon icon={weather.icon} size="4x"/>
-            <h1>{temperature}</h1> 
-            <h1>{weather.description}</h1> 
-        </div>
+            <FontAwesomeIcon className="weather-icon" icon={weather.icon} size="4x"/>
+            <label className="temperature">{temperature}°C</label> 
+            <label className="date">{weather.description}</label> 
         </div>
         
       );
     
+    } else {
+      return("");
     }
-    return("");
 
 }
 

@@ -6,9 +6,10 @@ import CityWeather from './components/CityWeather/CityWeather';
 
 function App() {
   const [availableCities, setAvailableCities] = useState([
-    {name: "Helsinki", longitude: 60.17, latitude: 24.95},
-    {name: "Turku", longitude: 60.45, latitude: 22.28},
-    {name: "Tampere", longitude: 61.50, latitude: 23.80}
+    {name: "Helsinki", latitude: 60.17, longitude: 24.95},
+    {name: "Turku", latitude: 60.45, longitude: 22.28},
+    {name: "Tampere", latitude: 61.50, longitude: 23.80},
+    {name: "Lappeenranta", latitude: 61.06, longitude: 28.19}
   ]);
   
   const [activeCity, setActiveCity] = useState(null);
