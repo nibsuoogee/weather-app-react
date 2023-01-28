@@ -1,5 +1,26 @@
 # Weather-App-React
 
+## Dependencies
+
+All dependencies can be found in the package.json file:
+https://github.com/nibsuoogee/weather-app-react/blob/main/package.json
+
+A run down for installing each additional package:
+
+MUI (UI elements)
+
+- npm install @mui/material @emotion/react @emotion/styled
+
+Axios (API requests)
+
+- npm install axios
+
+Fontawesom (Icons)
+
+- npm i --save @fortawesome/fontawesome-svg-core  
+- npm install --save @fortawesome/free-solid-svg-icons
+- npm install --save @fortawesome/react-fontawesome   
+
 ## Initial component hierarchy plan
 
 ![image](https://user-images.githubusercontent.com/37696410/214836008-fcb74dc1-337f-490a-9246-f083117d6400.png)
