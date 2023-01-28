@@ -195,9 +195,11 @@ const SingleDayWeather = ({date, temperature, code}) => {
         <div>
           {date ? ShowDate(date) : ""}
         </div>
+        <div className="Icon-box">
           <FontAwesomeIcon className="weather-icon" icon={weather.icon} size="4x"/>
-          <label className="temperature">{temperature}°C</label> 
-          <label className="date">{weather.description}</label> 
+        </div>
+        <label className="temperature">{temperature}°C</label> 
+        <label className="date">{weather.description}</label> 
       </div>
     );
   
