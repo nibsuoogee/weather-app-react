@@ -9,6 +9,7 @@ const CityWeather = ({activeCity, deactivateCity}) => {
     const [switchChecked, setSwitchChecked] = useState(false);
     const [cityWeatherDisplay, setCityWeatherDisplay] = useState(null);
     const [cityWeather, setCityWeather] = useState(null);
+    const [currentTimeAndOffset, setCurrentTimeAndOffset] = useState(null);
 
     const handlesetSwitchChecked = (event) => {
         setSwitchChecked(event.target.checked);
@@ -23,7 +24,6 @@ const CityWeather = ({activeCity, deactivateCity}) => {
     }
 
     const handleSetCityWeather = (response)  => {
-
         // offset -120 = UTC+02
         var offset = new Date().getTimezoneOffset() / 60 * (-1);
     
@@ -45,10 +45,6 @@ const CityWeather = ({activeCity, deactivateCity}) => {
         const formattedDateToday = dateToday.toISOString().slice(5, 10);
         const formattedDateYesterday = dateYesterday.toISOString().slice(5, 10);
         const formattedDateTomorrow = dateTomorrow.toISOString().slice(5, 10);
-
-        console.log(formattedTimeYesterday)
-        console.log(formattedTimeToday)
-        console.log(formattedTimeTomorrow)
     
         let indexOfWeatherToday = response.data.hourly.time.indexOf(formattedTimeToday)
         let weatherOfIndexToday = response.data.hourly.temperature_2m[indexOfWeatherToday]
@@ -71,6 +67,7 @@ const CityWeather = ({activeCity, deactivateCity}) => {
         const multipleDays = [ ...newState ]
         const today = multipleDays.filter(day => day.date === formattedDateToday);
         setCityWeatherDisplay(today)
+        setCurrentTimeAndOffset(`${formattedTimeToday.slice(11,16)} UTC${(offset >= 0) ? "+" : ""}${offset}`)
     }
 
     // offset -120 = UTC+02
@@ -92,7 +89,7 @@ const CityWeather = ({activeCity, deactivateCity}) => {
     const formattedDateTomorrow = dateTomorrow.toISOString().slice(0, 10);
     
     if (activeCity && !cityWeather) {
-        const request = axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${activeCity.longitude}&longitude=${activeCity.latitude}&hourly=temperature_2m,weathercode&timezone=Europe%2FMoscow&start_date=${formattedDateYesterday}&end_date=${formattedDateTomorrow}`);
+        const request = axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${activeCity.latitude}&longitude=${activeCity.longitude}&hourly=temperature_2m,weathercode&timezone=Europe%2FMoscow&start_date=${formattedDateYesterday}&end_date=${formattedDateTomorrow}`);
         
         request.then(response => {
             handleSetCityWeather(response);
@@ -108,6 +105,7 @@ const CityWeather = ({activeCity, deactivateCity}) => {
 
     return(activeCity && cityWeather) ? (
         <div className="Weather-content">
+            {currentTimeAndOffset ? <label>Information for {currentTimeAndOffset} on each day.</label> : ""}
             <div className="Weather-Carousel">
                 {cityWeatherDisplay.map((day) => (
                     switchChecked ? 
