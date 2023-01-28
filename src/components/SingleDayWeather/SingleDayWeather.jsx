@@ -185,7 +185,8 @@ const SingleDayWeather = ({date, temperature, code}) => {
     const weather = weatherCodes.find(obj => obj.floor === floorCode)
 
     const ShowDate = (date) => {
-      const formattedDate = date.slice(5,10).replace('-','.').concat(".");
+      let [day, month] = date.slice(5,10).replace('-','.').split(".");
+      let formattedDate = `${month}.${day}.`;
       return formattedDate ? <label className="date">{formattedDate}</label> : "";
     }
 
