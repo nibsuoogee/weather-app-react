@@ -74,13 +74,7 @@ label {
 
 .text-btn {
   text-transform: unset !important;
+  width: 10em;
 }
 
-.Weather-content {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  width: 400px;
-  gap: 5px;
-}
 
