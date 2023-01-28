@@ -29,9 +29,10 @@ const WeatherCarousel = ({activeCity, deactivateCity}) => {
 
 
     useEffect(() => {
+        // Offset can be applied dynamically below, but requires api request dictionary for zones
         // offset -120 = UTC+02
-        const offset = new Date().getTimezoneOffset() / 60 * (-1);
-        
+        //const offset = new Date().getTimezoneOffset() / 60 * (-1);
+        const offset = 2;
         const dateToday = new Date();
         dateToday.setHours(dateToday.getHours() + offset);
 

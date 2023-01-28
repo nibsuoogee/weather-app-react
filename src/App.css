@@ -39,6 +39,7 @@
   align-items: center;
   gap: 1em;
   grid-row: 2 / 2;
+  flex-wrap: wrap;
 }
 
 h1 {
