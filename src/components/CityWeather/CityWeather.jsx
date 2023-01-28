@@ -17,46 +17,47 @@ const CityWeather = ({activeCity, deactivateCity}) => {
             const multipleDays = [ ...cityWeather ]
             setCityWeatherDisplay(multipleDays)
         } else {
-            const multipleDays = [ ...cityWeather ]
-            const today = multipleDays.filter(day => day.date === formattedDateToday);
+            const today = [ ...cityWeather ].filter(day => day.date === formattedDateToday);
             setCityWeatherDisplay(today)
         }
     }
 
+    // offset -120 = UTC+02
+    const offset = new Date().getTimezoneOffset() / 60 * (-1);
+    
+    const dateToday = new Date();
+    dateToday.setHours(dateToday.getHours() + offset);
+
+    const dateTomorrow = new Date(dateToday);
+    dateTomorrow.setDate(dateTomorrow.getDate() + 1 );
+
+    const dateYesterday = new Date(dateToday);
+    dateYesterday.setDate(dateYesterday.getDate() - 1);
+
+    const formattedTimeToday = dateToday.toISOString().slice(0, 14).concat("00");
+    const formattedTimeYesterday = dateYesterday.toISOString().slice(0, 14).concat("00");
+    const formattedTimeTomorrow = dateTomorrow.toISOString().slice(0, 14).concat("00");
+    
+    const formattedDateToday = dateToday.toISOString().slice(0, 10);
+    const formattedDateYesterday = dateYesterday.toISOString().slice(0, 10);
+    const formattedDateTomorrow = dateTomorrow.toISOString().slice(0, 10);
+
     const handleSetCityWeather = (response)  => {
-        // offset -120 = UTC+02
-        var offset = new Date().getTimezoneOffset() / 60 * (-1);
-    
-        const dateToday = new Date();
-        dateToday.setHours(dateToday.getHours() + offset);
-    
-        const dateTomorrow = new Date();
-        dateTomorrow.setHours(dateTomorrow.getHours() + offset);
-        dateTomorrow.setDate(dateTomorrow.getDate() + 1 );
-    
-        const dateYesterday = new Date();
-        dateYesterday.setHours(dateYesterday.getHours() + offset);
-        dateYesterday.setDate(dateYesterday.getDate() - 1);
-    
-        const formattedTimeToday = dateToday.toISOString().slice(0, 14).concat("00");
-        const formattedTimeYesterday = dateYesterday.toISOString().slice(0, 14).concat("00");
-        const formattedTimeTomorrow = dateTomorrow.toISOString().slice(0, 14).concat("00");
-        
-        const formattedDateToday = dateToday.toISOString().slice(5, 10);
-        const formattedDateYesterday = dateYesterday.toISOString().slice(5, 10);
-        const formattedDateTomorrow = dateTomorrow.toISOString().slice(5, 10);
-    
-        let indexOfWeatherToday = response.data.hourly.time.indexOf(formattedTimeToday)
-        let weatherOfIndexToday = response.data.hourly.temperature_2m[indexOfWeatherToday]
-        let codeOfIndexToday = response.data.hourly.weathercode[indexOfWeatherToday]
+        const time = response.data.hourly.time;
+        const temperature = response.data.hourly.temperature_2m;
+        const weathercode = response.data.hourly.weathercode;
 
-        let indexOfWeatherTomorrow = response.data.hourly.time.indexOf(formattedTimeTomorrow)
-        let weatherOfIndexTomorrow = response.data.hourly.temperature_2m[indexOfWeatherTomorrow]
-        let codeOfIndexTomorrow = response.data.hourly.weathercode[indexOfWeatherTomorrow]
+        let indexOfWeatherToday = time.indexOf(formattedTimeToday)
+        let weatherOfIndexToday = temperature[indexOfWeatherToday]
+        let codeOfIndexToday = weathercode[indexOfWeatherToday]
 
-        let indexOfWeatherYesterday = response.data.hourly.time.indexOf(formattedTimeYesterday)
-        let weatherOfIndexYesterday = response.data.hourly.temperature_2m[indexOfWeatherYesterday]
-        let codeOfIndexYesterday = response.data.hourly.weathercode[indexOfWeatherYesterday]
+        let indexOfWeatherTomorrow = time.indexOf(formattedTimeTomorrow)
+        let weatherOfIndexTomorrow = temperature[indexOfWeatherTomorrow]
+        let codeOfIndexTomorrow = weathercode[indexOfWeatherTomorrow]
+
+        let indexOfWeatherYesterday = time.indexOf(formattedTimeYesterday)
+        let weatherOfIndexYesterday = temperature[indexOfWeatherYesterday]
+        let codeOfIndexYesterday = weathercode[indexOfWeatherYesterday]
 
         const newState = [
             {date: formattedDateYesterday, temperature: weatherOfIndexYesterday, code: codeOfIndexYesterday},
@@ -64,36 +65,19 @@ const CityWeather = ({activeCity, deactivateCity}) => {
             {date: formattedDateTomorrow, temperature: weatherOfIndexTomorrow, code: codeOfIndexTomorrow}
         ]
         setCityWeather(newState)
-        const multipleDays = [ ...newState ]
-        const today = multipleDays.filter(day => day.date === formattedDateToday);
+        const today = [ ...newState ].filter(day => day.date === formattedDateToday);
         setCityWeatherDisplay(today)
         setCurrentTimeAndOffset(`${formattedTimeToday.slice(11,16)} UTC${(offset >= 0) ? "+" : ""}${offset}`)
     }
 
-    // offset -120 = UTC+02
-    var offset = new Date().getTimezoneOffset() / 60 * (-1);
-
-    const dateToday = new Date();
-    dateToday.setHours(dateToday.getHours() + offset);
-
-    const dateTomorrow = new Date();
-    dateTomorrow.setHours(dateTomorrow.getHours() + offset);
-    dateTomorrow.setDate(dateTomorrow.getDate() + 1 );
-
-    const dateYesterday = new Date();
-    dateYesterday.setHours(dateYesterday.getHours() + offset);
-    dateYesterday.setDate(dateYesterday.getDate() - 1);
-
-    const formattedDateToday = dateToday.toISOString().slice(5, 10);
-    const formattedDateYesterday = dateYesterday.toISOString().slice(0, 10);
-    const formattedDateTomorrow = dateTomorrow.toISOString().slice(0, 10);
-    
     if (activeCity && !cityWeather) {
         const request = axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${activeCity.latitude}&longitude=${activeCity.longitude}&hourly=temperature_2m,weathercode&timezone=Europe%2FMoscow&start_date=${formattedDateYesterday}&end_date=${formattedDateTomorrow}`);
         
         request.then(response => {
             handleSetCityWeather(response);
-        });
+        }).catch(error => {
+            console.log(error)
+        })
     }
     
     const handleWeatherResetAndQuit = () => {
@@ -107,11 +91,11 @@ const CityWeather = ({activeCity, deactivateCity}) => {
         <div className="Weather-content">
             {currentTimeAndOffset ? <label>Information for {currentTimeAndOffset} on each day.</label> : ""}
             <div className="Weather-Carousel">
-                {cityWeatherDisplay.map((day) => (
+                {cityWeatherDisplay ? cityWeatherDisplay.map((day) => (
                     switchChecked ? 
                     <SingleDayWeather temperature={day.temperature} code={day.code} date={day.date}/> :
                     <SingleDayWeather temperature={day.temperature} code={day.code}/>
-                ))}
+                )) : <label>An error occured</label>}
             </div>
             <div className="Switch-container">
                 <Switch onChange={handlesetSwitchChecked} checked={switchChecked} color="default"/>
