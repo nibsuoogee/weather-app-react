@@ -1,5 +1,9 @@
 # Weather-App-React
 
+## Github pages
+
+https://nibsuoogee.github.io/weather-app-react/
+
 ## Dependencies
 
 All dependencies can be found in the package.json file:
