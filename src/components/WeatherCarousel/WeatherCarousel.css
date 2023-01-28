@@ -8,6 +8,7 @@
 
 .Weather-Carousel {
     display: flex;
+    flex-wrap: wrap;
     gap: 40px;
     justify-content: center;
     align-items: center;
