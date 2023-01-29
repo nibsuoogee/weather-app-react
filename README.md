@@ -25,6 +25,13 @@ Fontawesom (Icons)
 - npm install --save @fortawesome/free-solid-svg-icons
 - npm install --save @fortawesome/react-fontawesome   
 
+## Development
+
+1. Obtain node_modules by running "npx create-react-app weather-app-react" in a directory
+2. Remove generated files other than node_modules
+3. Clone this repo into that directory
+4. Run "npm start" in the directory. A development build will be launched (@localhost:3000 by default).
+
 ## Initial component hierarchy plan
 
 ![image](https://user-images.githubusercontent.com/37696410/214836008-fcb74dc1-337f-490a-9246-f083117d6400.png)
