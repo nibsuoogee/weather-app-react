@@ -30,7 +30,8 @@ Fontawesom (Icons)
 1. Obtain node_modules by running "npx create-react-app weather-app-react" in a directory
 2. Remove generated files other than node_modules
 3. Clone this repo into that directory
-4. Run "npm start" in the directory. A development build will be launched (@localhost:3000 by default).
+4. Install required dependencies.
+5. Run "npm start" in the directory. A development build will be launched (@localhost:3000 by default).
 
 ## Initial component hierarchy plan
 
