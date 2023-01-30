@@ -55,7 +55,23 @@ const WeatherCarousel = ({activeCity, deactivateCity}) => {
 
         if (activeCity && !cityWeather) {
             cancelToken = axios.CancelToken.source();
-            const request = axios.get(`https://api.open-meteo.com/v1/forecast?latitude=${activeCity.latitude}&longitude=${activeCity.longitude}&hourly=temperature_2m,weathercode&timezone=Europe%2FMoscow&start_date=${formattedDateYesterday}&end_date=${formattedDateTomorrow}`, { cancelToken: cancelToken.token });
+            const url = new URL('https://api.open-meteo.com/v1/forecast')
+            const params = new URLSearchParams(url.search);
+
+            params.set('latitude', activeCity.latitude);
+            params.set('longitude', activeCity.longitude);
+            //params.set('hourly', 'temperature_2m,weathercode')
+            // "Cannot initialize ForecastSurfaceVariable from invalid String value temperature_2m,weathercode for key hourly"
+            // meteo api doesn't like the encoding for some reason. Let us append the hourly parameter to the url as is.
+            const hourly = '&hourly=temperature_2m,weathercode';
+            params.set('timezone', 'Europe/Moscow');
+            params.set('start_date', formattedDateYesterday);
+            params.set('end_date', formattedDateTomorrow);
+
+            url.search = params.toString() + hourly;
+
+            const request = axios.get(url, { cancelToken: cancelToken.token });
+            console.log(request);
             request.then(response => {
                 
                 const time = response.data.hourly.time;
